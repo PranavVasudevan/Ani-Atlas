@@ -15,13 +15,10 @@ export default function Login() {
     setError("");
     setLoading(true);
     try {
-      const form = new URLSearchParams();
-      form.append("username", username);
-      form.append("password", password);
-      const res = await fetch(`${API_BASE}/auth/token`, {
+      const res = await fetch(`${API_BASE}/auth/login`, {
         method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: form.toString(),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, password }),
       });
       if (!res.ok) throw new Error("Invalid credentials");
       const data = await res.json();
